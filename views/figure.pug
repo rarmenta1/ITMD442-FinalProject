@@ -1,0 +1,31 @@
+extends layout
+
+block content
+  h1= title
+  p Detailed Figure Information
+  a(href='/figures') Return to your figure collection
+  hr
+  #figures-wrapper 
+    <table style="width:100%">
+      <tr>
+        th Series Name
+        th Figure Name
+        th Version
+        th Scale
+        th Manufacturer
+        th Release Date
+        th URL Page
+      </tr>
+        tr.figures-list 
+          th= figure.seriesName 
+          th= figure.figureName
+          th= figure.version
+          th= figure.scale
+          th= figure.manufacturer
+          th= figure.releaseDate
+          th= figure.urlPage
+    </table>
+      .figure-actions 
+      a(href='/figures/' + figure.id + "/delete") Delete Figure
+      | 
+      a(href='/figures/' + figure.id + "/edit") Edit Figure

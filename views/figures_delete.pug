@@ -1,0 +1,31 @@
+extends layout
+
+block content
+  h1= title
+  p Are you sure you want to delete this figure?
+  hr
+  #figures-wrapper 
+    <table style="width:100%">
+      <tr>
+        th Series Name
+        th Figure Name
+        th Version
+        th Scale
+        th Manufacturer
+        th Release Date
+        th URL Page
+      </tr>
+        tr.figures-list 
+          th= figure.seriesName 
+          th= figure.figureName
+          th= figure.version
+          th= figure.scale
+          th= figure.manufacturer
+          th= figure.releaseDate
+          th= figure.urlPage
+    </table>
+    hr
+  form(method='POST', action='/figures/' + figure.id + '/delete')
+    button(type='submit') Confirm Delete
+    | 
+    a(href='/figures/' + figure.id) Cancel

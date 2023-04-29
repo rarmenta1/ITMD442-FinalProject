@@ -1,0 +1,52 @@
+extends layout
+
+block content
+  h1= title 
+  p  Please use the form below to add a figure to your collection
+  hr
+  if msg
+    p(class='redtext')= msg
+
+  form(method='POST', action='/figures/add')
+    <label for="seriesName">Series Name:</label>
+    | 
+    input(type='text', name='seriesName')
+    <br>
+    <br>
+    <label for="fname">Figure name:</label>
+    | 
+    input(type='text', name='figureName')
+    <br>
+    <br>
+    <label for="version">Version:</label>
+    | 
+    input(type='text', name='version')
+    | 
+    <br>
+    <br>
+    <label for="scale">Scale:</label>
+    | 
+    input(type='text', name='scale')
+    <br>
+    <br>
+    <label for="manufacturer">Manufacturer:</label>
+    | 
+    input(type='text', name='manufacturer')
+    | 
+    <br>
+    <br>
+    <label for="releaseDate">Release Date:</label>
+    | 
+    input(type='month', name='releaseDate')
+    | 
+    <br>
+    <br>
+    <label for="urlPage">URL Page:</label>
+    | 
+    input(type='url', name='urlPage')
+    | 
+    <br>
+    <br>
+    button(type='submit') Add Figure 
+    | 
+    a(href='/figures') Cancel 

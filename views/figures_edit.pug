@@ -1,0 +1,48 @@
+extends layout
+
+block content
+  h1= title
+  p Use the form below to edit this figure .
+  hr
+  if msg 
+    p(class='redtext')= msg
+  form(method='POST', action='/figures/' + figure.id + '/edit')
+    <label for="seriesName">Series name:</label>
+    | 
+    input(type='text', name='seriesName', value=figure.seriesName)
+    <br>
+    <br>
+    <label for="figureName">Figure name:</label>
+    | 
+    input(type='text', name='figureName', value=figure.figureName)
+    <br>
+    <br>
+    <label for="version">Version:</label>
+    | 
+    input(type='text', name='version', value=figure.version)
+    <br>
+    <br>
+    <label for="scale">Scale:</label>
+    | 
+    input(type='text', name='scale', value=figure.scale)
+    <br>
+    <br>
+    <label for="manufacturer">Manufacturer:</label>
+    | 
+    input(type='text', name='manufacturer', value=figure.manufacturer)
+    <br>
+    <br>
+    <label for="releaseDate">Release Date:</label>
+    | 
+    input(type='month', name='releaseDate', value=figure.releaseDate)
+    <br>
+    <br>
+    <label for="urlPage">URL Page:</label>
+    | 
+    input(type='url', name='urlPage', value=figure.urlPage)
+    | 
+    <br>
+    <br>
+    button(type='submit') Save Changes 
+    | 
+    a(href='/figures/' + figure.id) Cancel 

@@ -2,4 +2,23 @@ extends layout
 
 block content
   h1= title
-  p Welcome to #{title}
+  p Your Figure Collection
+  a(href='/figures/add') Add a figure
+  hr
+  if figures.length > 0
+    #figures-wrapper 
+    <table style="width:100%">
+      <tr>
+        <th>Series Name</th>
+        <th>Figure Name</th>
+        <th>URL Page </th>
+      </tr>
+      each val in figures 
+        tr.figures-list 
+          th(data-figureid=val.id)
+            a(href='/figures/' + val.id)= val.seriesName
+          th(data-figureid=val.id)
+            a(href='/figures/' + val.id)= val.figureName
+          th(data-figureid=val.id)
+            a(href='/figures/' + val.id)= val.urlPage
+    </table>
