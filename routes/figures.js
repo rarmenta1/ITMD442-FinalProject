@@ -1,69 +1,37 @@
 var express = require('express');
 var router = express.Router();
-const figuresRepo = require('../src/figuresFileRepository');
+const figuresController = require('../controllers/figureController');
+const { body  } = require('express-validator');
 
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
-  const data = figuresRepo.findAll();
-  res.render('figures', {title: 'Express Figures', figures: data});
-});
+router.get('/', figuresController.figures_list);
 
-/* GET create figure form. */
-router.get('/add', function(req, res, next) {
-  res.render('figures_add', {title: 'Add a figure'});
-});
+/* GET create figures form. */
+router.get('/add', figuresController.figures_create_get);
 
-/* POST create figure. */
-router.post('/add', function(req, res, next) {
-  //console.log(req.body);
-  if (req.body.seriesName.trim() === '' || req.body.figureName.trim() === '')  {
-    res.render('figures_add', { title: 'Add a contact', msg: 'Series and Figure Name text fields can NOT be empty!'});
-} else  {
-  figuresRepo.create({seriesName: req.body.seriesName, figureName: req.body.figureName, version: req.body.version, scale: req.body.scale, manufacturer: req.body.manufacturer, releaseDate: req.body.releaseDate, urlPage: req.body.urlPage})
-  res.redirect('/figures');
-}
-});
+/* POST create figures. */
+router.post('/add', 
+body('seriesName').trim().notEmpty().withMessage('Series Name can NOT be empty!'),
+body('figureName').trim().notEmpty().withMessage('Figure Name can NOT be empty!'),
+figuresController.figures_create_post);
 
 /* GET single figures. */
-router.get('/:uuid', function(req, res, next) {
-  const figure = figuresRepo.findById(req.params.uuid);
-  if(figure) {
-    res.render('figure', {title: 'Figure Information', figure: figure });
-  } else {
-    res.redirect('/figures');
-  }
-});
+router.get('/:uuid', figuresController.figures_detail);
 
-/* GET delete contacts form. */
-router.get('/:uuid/delete', function(req, res, next) {
-  const figure = figuresRepo.findById(req.params.uuid);
-  res.render('figures_delete', {title: 'Delete Figure', figure: figure });
-});
+/* GET delete figures form. */
+router.get('/:uuid/delete', figuresController.figures_delete_get);
 
-/* POST delete contacts. */
-router.post('/:uuid/delete', function(req, res, next) {
-  figuresRepo.deleteByID(req.params.uuid);
-  res.redirect('/figures');
-});
+/* POST delete figures. */
+router.post('/:uuid/delete', figuresController.figures_delete_post);
 
-/* GET edit contacts form. */
-router.get('/:uuid/edit', function(req, res, next) {
-  const figure = figuresRepo.findById(req.params.uuid);
-  res.render('figures_edit', {title: 'Edit Figure', figure: figure });
-});
+/* GET edit figures form. */
+router.get('/:uuid/edit', figuresController.figures_edit_get);
 
-/* POST edit contacts. */
-router.post('/:uuid/edit', function(req, res, next) {
-  //console.log(req.body);
-  if (req.body.seriesName.trim() === '' || req.body.figureName.trim() === '')  {
-    const figure = figuresRepo.findById(req.params.uuid);
-    res.render('figures_edit', { title: 'Edit figure', msg: 'Series and Figure Name text fields can NOT be empty!', figure: figure});
-  } else  {
-    const updatedFigure = {id: req.params.uuid, seriesName: req.body.seriesName, figureName: req.body.figureName, version: req.body.version, scale: req.body.scale, manufacturer: req.body.manufacturer, releaseDate: req.body.releaseDate, urlPage: req.body.urlPage };
-    figuresRepo.update(updatedFigure);
-    res.redirect('/figures/' + req.params.uuid);
-  }
-});
+/* POST edit figures. */
+router.post('/:uuid/edit',
+body('seriesName').trim().notEmpty().withMessage('Series Name can NOT be empty!'),
+body('figureName').trim().notEmpty().withMessage('Figure Name can NOT be empty!'),
+figuresController.figures_edit_post);
 
 module.exports = router;
