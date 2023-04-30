@@ -5,8 +5,9 @@ block content
   p  Please use the form below to add a figure to your collection
   hr
   if msg
-    p(class='redtext')= msg
-
+    ul 
+      each val in msg 
+        li(class='redtext')= val.msg 
   form(method='POST', action='/figures/add')
     <label for="seriesName">Series Name:</label>
     | 

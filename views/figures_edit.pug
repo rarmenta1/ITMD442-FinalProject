@@ -4,8 +4,10 @@ block content
   h1= title
   p Use the form below to edit this figure .
   hr
-  if msg 
-    p(class='redtext')= msg
+  if msg
+    ul 
+      each val in msg 
+        li(class='redtext')= val.msg 
   form(method='POST', action='/figures/' + figure.id + '/edit')
     <label for="seriesName">Series name:</label>
     | 
