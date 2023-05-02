@@ -1,11 +1,41 @@
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: #121212;
+  color: white;
+}
+
+h1, h2 {
+  font-family: 'Libre Baskerville', serif;	
+  text-align: center;
+
 }
 
 a {
   color: #00B7FF;
 }
+
+#heading {
+  text-align: center;
+  width: 50%;
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  }
+
+#main	{
+  background-color: rgb(114, 137, 218);
+  width: 50%;
+  position: relative;
+  padding: 0.5em 2em;
+  margin-left: auto;
+  margin-right: auto;
+  }
+
+p {
+  font-size: 17px;
+}
+
 
 .redtext  {
   color: #cc0000;
